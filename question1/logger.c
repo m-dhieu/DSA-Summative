@@ -233,14 +233,14 @@ void insert_event(EventLogger *logger)
     if (logger->head == NULL) {
         logger->head = new_node;
         logger->tail = new_node;
-        logger->current = new_node;
     } else {
         new_node->prev = logger->tail;
         logger->tail->next = new_node;
         logger->tail = new_node;
-        if (logger->current == NULL)
-            logger->current = new_node;
     }
+
+    /* make newly entered event the current event */
+    logger->current = new_node;
 
     logger->count++;
     printf("Event %s successfully logged. (Entries: %d/%d)\n",
